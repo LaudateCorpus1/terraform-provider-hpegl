@@ -62,16 +62,6 @@ accframework: vendor
 
 	vend; \
 
-	# delete current config files and generate new one 
-	#check if yaml file exist before trying to remove.
-	# if test -f "prod.yaml"; then \
-    # 	rm prod.yaml ; \
-	# fi \
-
-	# touch prod.yaml
-
-	ls vendor/github.com/HewlettPackard/$(prefix)vmaas$(suffix)
-
 	# Download acceptance tests
 	# build config files
 	for f in $(ACC_TEST_SERVICES); do \
