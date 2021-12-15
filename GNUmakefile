@@ -88,38 +88,3 @@ acceptance: accframework
 
 docs: docs-generate
 .PHONY: docs
-
-
-# accframework: vendor
-# 	# Installing vend
-# 	@go install github.com/nomad-software/vend@v1.0.3 \
-
-# 	vend; \
-
-# 	# delete current config files and generate new one 
-# 	#check if yaml file exist before trying to remove.
-# 	# if test -f "prod.yaml"; then \
-#     # 	rm prod.yaml ; \
-# 	# fi \
-
-# 	# touch prod.yaml
-
-# 	ls vendor/github.com/HewlettPackard/$(prefix)vmaas$(suffix)
-
-# 	# Download acceptance tests
-# 	# build config files
-# 	for f in $(ACC_TEST_SERVICES); do \
-# 		if [ -d "internal/acceptance/$${f}" ] ; then \
-# 		rm -rf ./internal/acceptance/$${f} ; \
-# 		fi ; \
-# 		if [ -d vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ] ; then \
-# 		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ./internal/acceptance/$${f} ; \
-# 		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-testcases ./internal/acceptance/$${f} ; \
-# 		fi ; \
-# 		rm ./internal/acceptance/$${f}/provider_test.go ; \
-# 		cp ./internal/acceptance/acceptance-utils/provider_test.go ./internal/acceptance/$${f} ; \
-# 	done
-
-# 	# remove vend files
-# 	rm -rf vendor
-# .PHONY: accframework
