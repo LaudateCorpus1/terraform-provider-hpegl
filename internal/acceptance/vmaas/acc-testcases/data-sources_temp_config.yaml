@@ -1,0 +1,60 @@
+acc:
+- config: |
+    name = "HPE GreenLake VMaaS Cloud"
+  validations:
+    json.zone.id: 1
+    tf.id: 1
+acc:
+- config: |
+    name     = "ComputeFolder"
+    cloud_id = 1
+  validations:
+    json.folder.id: 1
+acc:
+- config: |
+    name = "GLHC-Vol10"
+    cloud_id = 1
+acc:
+- config: |
+    name     = "dev"
+acc:
+- config: |
+    name     = "tf_group"
+acc:
+- config: |
+    name               = "Vmware VM"
+    instance_type_code = "vmware"
+acc:
+- config: |
+    name = "NSXT_DHCP"
+acc:
+- config: |
+    name     = "tf_domain"
+acc:
+- config: |
+    name     = "E1000"
+    cloud_id = 1
+  validations:
+    tf.id: 2
+acc:
+- config: |
+    name = "tf_pool"
+acc:
+- config: |
+    name = "tf_proxy"
+acc:
+- config: |
+    name = "NSX-T Segment"
+acc:
+- config: |
+    name = "G1-Small"
+acc:
+- config: |
+    name = "TF_Weekday"
+acc:
+- config: |
+    name = "ComputeResourcePool"
+    cloud_id = 1
+acc:
+- config: |
+    name = "vanilla-centos7-x86_64-09072020"

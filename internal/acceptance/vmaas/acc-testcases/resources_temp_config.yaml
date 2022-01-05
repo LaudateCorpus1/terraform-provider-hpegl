@@ -1,0 +1,173 @@
+acc:
+- config: |
+    name = "tf_acc_%rand_int"
+    cloud_id = 1
+    group_id = 2
+    layout_id = 113
+    plan_id = 407
+    instance_type_code = "vmware"
+    network {
+        id = 3
+      }
+    volume {
+        name = "root_vol"
+        datastore_id = "auto"
+        size = %rand_int{5,8}
+      }
+    config {
+      resource_pool_id = 2
+      no_agent = true
+      template_id = 504
+      folder_code = "group-v284"
+      }
+    scale = 1
+  validations:
+    tf.status: "running"
+acc:
+- config: |
+    source_instance_id = 11
+    name = "tf_acc_clone_%rand_int"
+    network {
+      id = 3
+    }
+
+ignore: true
+acc:
+- config: |
+    name = "tf_acc_%rand_int"
+    cloud_id = 1
+    group_id = 2
+    layout_id = 113
+    plan_id = 407
+    instance_type_code = "vmware"
+    network {
+        id = 3
+      }
+    volume {
+        name = "root_vol"
+        datastore_id = "auto"
+        size = %rand_int{5,8}
+      }
+    config {
+      resource_pool_id = 2
+      no_agent = true
+      folder_code = "group-v284"
+      }
+    scale = 1
+  validations:
+    tf.status: "running"
+  expect_error: ".*template.*"
+acc:
+- config: |
+    name = "tf_acc_net_%rand_int"
+    group_id = "shared"
+    active = true
+    dhcp_server = true
+    description = "Network created using tf"
+    cidr = "168.72.10.0/18"
+    gateway = "168.72.10.10"
+    pool_id = 6
+
+ignore: true
+acc:
+- config: |
+    router_id   = 31
+    name        = "tf_router_nat_%rand_int"
+    enabled     = true
+    description = "NAT rule created via terraform"
+    config {
+      action   = "DNAT"
+      logging  = true
+      firewall = "MATCH_EXTERNAL_ADDRESS"
+    }
+    source_network      = "1.1.3.0/24"
+    translated_network  = "1.1.1.0/24"
+    destination_network = "1.1.2.0/24"
+    translated_ports    = 22
+    priority            = 120
+  validations:
+    json.networkRouterNAT.sourceNetwork : "1.1.3.0/24"
+- config: |
+    router_id   = 31
+    name        = "tf_router_nat_%rand_int"
+    enabled     = true
+    description = "NAT rule created via terraform"
+    config {
+      action   = "DNAT"
+      logging  = true
+      firewall = "MATCH_EXTERNAL_ADDRESS"
+    }
+    source_network      = "1.1.4.0/24"
+    translated_network  = "1.1.1.0/24"
+    destination_network = "1.1.2.0/24"
+    translated_ports    = 22
+    priority            = 120
+  validations:
+    json.networkRouterNAT.sourceNetwork : "1.1.4.0/24"
+acc:
+- config: |
+    name          = "tf_route_%rand_int"
+    router_id     = 31
+    description   = "router route created using terraform"
+    enabled       = true
+    default_route = false
+    network       = "30.0.0.0/24"
+    next_hop      = "88.88.88.91"
+    mtu           = "65535"
+    priority      = 100
+acc:
+- config: |
+    name = "tf_tier0_gateway_%rand_int"
+    enable = true
+    group_id = "shared"
+    tier0_config {
+      bgp {
+        ecmp = true
+        enable_bgp = true
+        inter_sr_ibgp = true
+        local_as_num = 65000
+        multipath_relax = true
+        restart_mode = "HELPER_ONLY"
+        restart_time = 180
+        stale_route_time = 600
+      }
+      route_redistribution_tier0 {
+        tier0_dns_forwarder_ip = false
+        tier0_external_interface = true
+        tier0_ipsec_local_ip = false
+        tier0_loopback_interface = true
+        tier0_nat = true
+        tier0_segment = true
+        tier0_service_interface = true
+        tier0_static = true
+      }
+      route_redistribution_tier1 {
+        tier1_dns_forwarder_ip = false
+        tier1_service_interface =  true
+        tier1_ipsec_local_endpoint = false
+        tier1_lb_snat = false
+        tier1_lb_vip = false
+        tier1_nat = false
+        tier1_segment = true
+        tier1_static = false
+      }
+      fail_over = "NON_PREEMPTIVE"
+      ha_mode = "ACTIVE_STANDBY"
+    }
+acc:
+- config: |
+    name = "tf_tier1_gateway_%rand_int"
+    enable = true
+    group_id = "shared"
+    tier1_config {
+      fail_over = "NON_PREEMPTIVE"
+      route_advertisement {
+        tier1_connected = true
+        tier1_static_routes = false
+        tier1_dns_forwarder_ip = true
+        tier1_lb_vip = false
+        tier1_nat = false
+        tier1_lb_snat = false
+        tier1_ipsec_local_endpoint = true
+      }
+    }

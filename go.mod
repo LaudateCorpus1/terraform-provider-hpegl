@@ -17,7 +17,6 @@ require (
 	github.com/sanposhiho/wastedassign v0.2.0 // indirect
 	github.com/securego/gosec/v2 v2.7.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
-	github.com/spf13/viper v1.9.0
 	github.com/tomarrell/wrapcheck v1.0.0 // indirect
 	honnef.co/go/tools v0.1.3 // indirect
 	mvdan.cc/gofumpt v0.1.1 // indirect
