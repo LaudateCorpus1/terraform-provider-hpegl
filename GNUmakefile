@@ -5,6 +5,7 @@ DEPEND_REPO=HewlettPackard/hpegl-vmaas-terraform-resources
 prefix=hpegl-
 suffix=-terraform-resources
 ACC_TEST_SERVICES=vmaas
+TESTCASE_DIRS=data-sources resources
 
 default: build
 
@@ -29,6 +30,10 @@ test:
 	go test -v $$(go list ./... | grep -v internal/acceptance/vmaas)
 
 .PHONY: build fmtcheck fmt tools lint test
+
+vendor: go.mod go.sum
+	GOPRIVATE=github.com/hpe-hcss go mod download
+	# go mod vendor
 
 docs-generate: vendor
 	# Installing vend
@@ -56,33 +61,40 @@ docs-generate: vendor
 
 .PHONY: docs-generate
 
+# ./internal/acceptance/$${f}/acc-testcases
+
 accframework: vendor
 	# Installing vend
 	@go install github.com/nomad-software/vend@v1.0.3 \
 
 	vend; \
 
-	# Download acceptance tests
-	# build config files
+	# Download acceptance tests and acc-testcases for each ACC_TEST_SERVICES
 	for f in $(ACC_TEST_SERVICES); do \
 		if [ -d "internal/acceptance/$${f}" ] ; then \
 		rm -rf ./internal/acceptance/$${f} ; \
 		fi ; \
 		if [ -d vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ] ; then \
 		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ./internal/acceptance/$${f} ; \
-		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-testcases ./internal/acceptance/$${f} ; \
+		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-prod_testcases ./internal/acceptance/$${f} ; \
 		fi ; \
+		# concatonate acc-testcases yaml files into one large temporary config file ; \
+		for dir in $(TESTCASE_DIRS); do \
+			touch ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
+			echo $${dir}: >> ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
+			sed 's/^/  /' ./internal/acceptance/$${f}/acc-prod_testcases/$${dir}/* >> ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
+		done ; \
 		rm ./internal/acceptance/$${f}/provider_test.go ; \
 		cp ./internal/acceptance/acceptance-utils/provider_test.go ./internal/acceptance/$${f} ; \
-	done
+	done ; \
 
 	# remove vend files
-	rm -rf vendor
 .PHONY: accframework
 
 acceptance: accframework
 	for f in $(ACC_TEST_SERVICES); do \
-		TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
+		TF_ACC_CONFIG=$${f}_temp_config TF_ACC_CONFIG_PATH=$(shell pwd)/internal/acceptance/$${f} TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
+			rm ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
 	done
 .PHONY: acceptance
 
