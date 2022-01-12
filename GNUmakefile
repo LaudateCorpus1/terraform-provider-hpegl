@@ -89,12 +89,13 @@ accframework: vendor
 	done ; \
 
 	# remove vend files
+	rm -rf vendor
 .PHONY: accframework
 
 acceptance: accframework
 	for f in $(ACC_TEST_SERVICES); do \
 		TF_ACC_CONFIG=$${f}_temp_config TF_ACC_CONFIG_PATH=$(shell pwd)/internal/acceptance/$${f} TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
-			rm ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
+		rm ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
 	done
 .PHONY: acceptance
 
