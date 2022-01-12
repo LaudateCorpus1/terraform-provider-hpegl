@@ -1,4 +1,4 @@
-name: acc
+name: Acceptance
 
 on:
   push:
