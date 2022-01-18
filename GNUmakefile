@@ -56,9 +56,9 @@ docs-generate: vendor
 
 .PHONY: docs-generate
 
-accframework: vendor
+accframework:
 	# Installing vend
-	@go install github.com/nomad-software/vend@v1.0.3 \
+	@go get -d github.com/nomad-software/vend@v1.0.3 \
 
 	vend; \
 
@@ -76,14 +76,17 @@ accframework: vendor
 		cp ./internal/acceptance/acceptance-utils/provider_test.go ./internal/acceptance/$${f} ; \
 	done
 
-	# remove vend files
-	rm -rf vendor
 .PHONY: accframework
 
 acceptance: accframework
+	export TF_ACC_TEST_PATH=$(shell pwd)/internal/acceptance/vmaas/acc-testcases ; \
 	for f in $(ACC_TEST_SERVICES); do \
 		TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
 	done
+
+	# remove vend files
+	rm -rf vendor
+
 .PHONY: acceptance
 
 docs: docs-generate
