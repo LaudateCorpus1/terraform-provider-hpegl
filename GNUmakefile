@@ -67,24 +67,19 @@ accframework: vendor
 
 	vend; \
 
-	# Download acceptance tests and acc-testcases for each ACC_TEST_SERVICES
+	# Download acceptance tests
+	# build config files
 	for f in $(ACC_TEST_SERVICES); do \
 		if [ -d "internal/acceptance/$${f}" ] ; then \
 		rm -rf ./internal/acceptance/$${f} ; \
 		fi ; \
 		if [ -d vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ] ; then \
 		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ./internal/acceptance/$${f} ; \
-		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-prod_testcases ./internal/acceptance/$${f} ; \
+		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-testcases ./internal/acceptance/$${f} ; \
 		fi ; \
-		# concatonate acc-testcases yaml files into one large temporary config file ; \
-		for dir in $(TESTCASE_DIRS); do \
-			touch ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
-			echo $${dir}: >> ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
-			sed 's/^/  /' ./internal/acceptance/$${f}/acc-prod_testcases/$${dir}/* >> ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
-		done ; \
 		rm ./internal/acceptance/$${f}/provider_test.go ; \
 		cp ./internal/acceptance/acceptance-utils/provider_test.go ./internal/acceptance/$${f} ; \
-	done ; \
+	done
 
 .PHONY: accframework
 
