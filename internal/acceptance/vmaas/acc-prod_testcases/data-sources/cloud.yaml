@@ -1,6 +1,3 @@
 acc:
 - config: |
     name = "HPE GreenLake VMaaS Cloud"
-  validations:
-    json.zone.id: 1
-    tf.id: 1

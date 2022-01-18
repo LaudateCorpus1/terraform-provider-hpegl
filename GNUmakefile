@@ -75,7 +75,7 @@ accframework: vendor
 		fi ; \
 		if [ -d vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ] ; then \
 		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/internal/acceptance_test ./internal/acceptance/$${f} ; \
-		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-testcases ./internal/acceptance/$${f} ; \
+		cp -r vendor/github.com/HewlettPackard/$(prefix)$${f}$(suffix)/acc-prod_testcases ./internal/acceptance/$${f} ; \
 		fi ; \
 		rm ./internal/acceptance/$${f}/provider_test.go ; \
 		cp ./internal/acceptance/acceptance-utils/provider_test.go ./internal/acceptance/$${f} ; \
@@ -84,10 +84,9 @@ accframework: vendor
 .PHONY: accframework
 
 acceptance: accframework
-	export TF_ACC_TEST_PATH=$(shell pwd)/internal/acceptance/vmaas/acc-testcases ; \
+	export TF_ACC_TEST_PATH=$(shell pwd)/internal/acceptance/vmaas/acc-prod_testcases ; \
 	for f in $(ACC_TEST_SERVICES); do \
 		TF_ACC_CONFIG=$${f}_temp_config TF_ACC_CONFIG_PATH=$(shell pwd)/internal/acceptance/$${f} TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
-		rm ./internal/acceptance/$${f}/$${f}_temp_config.yaml ; \
 	done
 
 	# remove vend files
