@@ -16,7 +16,10 @@ jobs:
           go-version: ${{ matrix.go }}
       - run: go version
       - run: make tools
-      - run: make acceptance
+      - run: |
+            export PATH=$PATH:$(go env GOPATH)/bin
+            go get -u golang.org/x/lint/golint
+            make acceptance
       - run: make lint
       - run: make build
       - run: make test
