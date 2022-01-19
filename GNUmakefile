@@ -21,7 +21,6 @@ fmt:
 
 tools:
 	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
-	GO111MODULE=on go install github.com/nomad-software/vend@latest
 
 lint:
 	@echo "==> Checking source code against linters..."
