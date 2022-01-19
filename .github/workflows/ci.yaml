@@ -15,7 +15,6 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go version
-      - run: make tools
       - run: make acceptance
       - run: make lint
       - run: make build
