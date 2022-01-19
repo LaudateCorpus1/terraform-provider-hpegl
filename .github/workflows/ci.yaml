@@ -18,7 +18,7 @@ jobs:
       - run: make tools
       - run: |
             export PATH=$PATH:$(go env GOPATH)/bin
-            go get -u golang.org/x/lint/golint
+            go get -d github.com/nomad-software/vend
             make acceptance
       - run: make lint
       - run: make build
