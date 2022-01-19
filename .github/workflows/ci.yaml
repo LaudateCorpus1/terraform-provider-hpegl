@@ -16,7 +16,6 @@ jobs:
           go-version: ${{ matrix.go }}
       - run: go version
       - run: make tools
-      - run: go get -d github.com/nomad-software/vend
       - run: make acceptance
       - run: make lint
       - run: make build

@@ -21,6 +21,8 @@ fmt:
 
 tools:
 	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
+	export PATH=$PATH:$(go env GOPATH)/bin
+	go get -d github.com/nomad-software/vend
 
 lint:
 	@echo "==> Checking source code against linters..."
