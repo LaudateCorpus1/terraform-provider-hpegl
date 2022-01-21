@@ -84,7 +84,7 @@ accframework: vendor tools
 acceptance: accframework
 	export TF_ACC_TEST_PATH=$(shell pwd)/internal/acceptance/vmaas/acc-prod_testcases ; \
 	for f in $(ACC_TEST_SERVICES); do \
-		TF_ACC_CONFIG=$${f}_temp_config TF_ACC_CONFIG_PATH=$(shell pwd)/internal/acceptance/$${f} TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
+		TF_ACC=true go test -v -timeout=1200s -cover ./internal/acceptance/$$f ; \
 	done
 
 	# remove vend files
