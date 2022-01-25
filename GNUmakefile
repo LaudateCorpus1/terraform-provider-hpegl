@@ -21,7 +21,7 @@ fmt:
 
 tools: vendor
 	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
-	go install github.com/nomad-software/vend@v1.0.3
+	go install github.com/nomad-software/vend
 
 lint:
 	@echo "==> Checking source code against linters..."
@@ -63,6 +63,8 @@ docs-generate: vendor
 .PHONY: docs-generate
 
 accframework: tools
+	go get -d github.com/nomad-software/vend
+
 	vend; \
 
 	# Download acceptance tests
