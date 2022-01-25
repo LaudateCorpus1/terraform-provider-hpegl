@@ -24,7 +24,7 @@ jobs:
           HPEGL_USER_ID: ${{secrets.HPEGL_USER_ID}}
           HPEGL_VMAAS_LOCATION: ${{secrets.HPEGL_VMAAS_LOCATION}}
           HPEGL_VMAAS_SPACE_NAME: ${{secrets.HPEGL_VMAAS_SPACE_NAME}}
-          HPEGL_API_VENDED_SERVICE_CLIENT: ${{secrets.HPEGL_API_VENDED_SERVICE_CLIENT}}
+          HPEGL_API_VENDED_SERVICE_CLIENT: true
         run: make acceptance
       - run: make lint
       - run: make build
