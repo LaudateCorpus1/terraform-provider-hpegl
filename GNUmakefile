@@ -63,8 +63,6 @@ docs-generate: vendor
 .PHONY: docs-generate
 
 accframework: tools
-	go get -d github.com/nomad-software/vend
-
 	vend; \
 
 	# Download acceptance tests
