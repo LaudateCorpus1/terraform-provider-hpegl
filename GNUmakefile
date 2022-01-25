@@ -19,7 +19,7 @@ fmt:
 	@echo "==> Fixing source code with gofmt..."
 	gofmt -s -w $(GOFMT_FILES)
 
-tools: vendor
+tools:
 	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
 	go install github.com/nomad-software/vend
 
@@ -62,7 +62,7 @@ docs-generate: vendor
 
 .PHONY: docs-generate
 
-accframework: tools
+accframework: vendor tools
 	vend; \
 
 	# Download acceptance tests
