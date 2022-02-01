@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        go: [ '1.17', '1.16', '1.15', '1.14', '1.13']
+        go: [ '1.17', '1.16' ]
     name: Go ${{ matrix.go }} CI test
     steps:
       - uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go version
-      - run: make acceptance
       - run: make lint
       - run: make build
       - run: make test
+      - run: make acceptance
