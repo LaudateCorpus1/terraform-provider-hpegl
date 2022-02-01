@@ -1,5 +1,5 @@
 vars:
-  instance_name: tf_acc_%rand_int
+  rand_name_1: tf_acc_%rand_int
   rand_storage_1: "%rand_int{5,8}"
 acc:
 - config: |
@@ -22,8 +22,8 @@ acc:
     config {
       resource_pool_id = 6
       no_agent = true
-      template_id = 1719
       folder_code = "group-v220"
     }
   validations:
     tf.status: "running"
+  expect_error: ".*template.*"

@@ -21,7 +21,7 @@ fmt:
 
 tools:
 	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
-	go install github.com/nomad-software/vend@v1.0.3
+
 lint:
 	@echo "==> Checking source code against linters..."
 	golangci-lint run ./...
@@ -83,7 +83,7 @@ accframework: vendor tools
 acceptance: accframework
 	export TF_ACC_TEST_PATH=$(shell pwd)/internal/acceptance/vmaas/acc-prod_testcases ; \
 	for f in $(ACC_TEST_SERVICES); do \
-		TF_ACC=true go test -v -timeout=2400s -cover ./internal/acceptance/$$f ; \
+		TF_ACC=true go test -v -timeout=9000s -cover ./internal/acceptance/$$f ; \
 	done
 
 	# remove vend files
