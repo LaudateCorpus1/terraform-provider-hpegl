@@ -1,6 +1,6 @@
 name: GitHub Actions CI
 
-on: [push, pull_request]
+on: release
 env: 
   HPEGL_IAM_SERVICE_URL: ${{ secrets.HPEGL_IAM_SERVICE_URL }}
   HPEGL_TENANT_ID: ${{ secrets.HPEGL_TENANT_ID }}
