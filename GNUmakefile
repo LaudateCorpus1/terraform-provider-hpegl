@@ -61,7 +61,7 @@ docs-generate: vendor
 
 .PHONY: docs-generate
 
-accframework: vendor tools
+accframework: vendor
 	vend; \
 
 	# Download acceptance tests
