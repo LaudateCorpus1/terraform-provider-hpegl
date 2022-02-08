@@ -20,9 +20,9 @@ fmt:
 	gofmt -s -w $(GOFMT_FILES)
 
 tools:
-	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint
+	GO111MODULE=on go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.43.0
 
-lint:
+lint: tools
 	@echo "==> Checking source code against linters..."
 	golangci-lint run ./...
 

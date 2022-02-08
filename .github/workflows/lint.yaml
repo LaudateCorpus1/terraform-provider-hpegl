@@ -1,0 +1,16 @@
+name: GitHub Actions CI
+
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        go: [ '1.17' ]
+    name: Linting
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - run: make lint
