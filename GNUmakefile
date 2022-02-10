@@ -32,8 +32,7 @@ test:
 .PHONY: build fmtcheck fmt tools lint test
 
 vendor: go.mod go.sum
-	GOPRIVATE=github.com/hpe-hcss go mod download
-	# go mod vendor
+	go mod vendor
 
 docs-generate: vendor
 	# Installing vend
