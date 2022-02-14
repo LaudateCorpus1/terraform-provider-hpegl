@@ -62,6 +62,7 @@ docs-generate: vendor
 .PHONY: docs-generate
 
 accframework: vendor
+	GO111MODULE=on go install github.com/nomad-software/vend@v1.0.3
 	vend; \
 
 	# Download acceptance tests
