@@ -12,7 +12,7 @@ jobs:
       - name: Trivy vulnerability scanner (repo mode)
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'vuln,config'
+          scan-type: 'fs'
           hide-progress: true
           format: 'table'
           exit-code: '1'
